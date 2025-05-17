@@ -6,7 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prisma": "prisma"
+    "prisma": "prisma",
+    "dev:web": "dotenv -e .env.web -- next dev -p 3000",
+    "dev:native": "dotenv -e .env.native -- npx react-native start",
+    "build:web": "tsc --project tsconfig.web.json",
+    "build:native": "tsc --project tsconfig.native.json",
+    "start:web": "dotenv -e .env.web -- next start",
+    "start:native": "dotenv -e .env.native -- npx react-native run-android",
+    "clean:native": "watchman watch-del-all && rm -rf node_modules/ && rm -rf /tmp/metro-* && rm -rf android/app/build && npm cache clean --force && npm install"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.0.0",
@@ -15,6 +22,7 @@
     "@supabase/supabase-js": "^2.6.0",
     "clsx": "^2.1.1",
     "next": "^14.2.28",
+    "openai": "^4.100.0",
     "react": "18.3.0",
     "react-dom": "18.3.0",
     "react-hook-form": "^7.45.0",
@@ -23,8 +31,10 @@
     "zod": "^3.21.0"
   },
   "devDependencies": {
+    "@react-native-community/cli": "^18.0.0",
     "@types/node": "^22.15.18",
     "@types/react": "^19.1.4",
+    "dotenv-cli": "^8.0.0",
     "prisma": "^6.7.0",
     "typescript": "^5.8.3"
   }

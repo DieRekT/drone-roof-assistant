@@ -1,0 +1,64 @@
+// tsconfig.json (base shared config)
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
+
+// tsconfig.web.json (for Next.js build)
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "module": "esnext",
+    "plugins": [{ "name": "next" }]
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}
+
+// tsconfig.native.json (for React Native build)
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-native",
+    "module": "esnext"
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}
+
+// scripts block for package.json
+"scripts": {
+  "dev:web": "dotenv -e .env.web -- next dev -p 3000",
+  "dev:native": "dotenv -e .env.native -- react-native start",
+  "build:web": "tsc --project tsconfig.web.json",
+  "build:native": "tsc --project tsconfig.native.json",
+  "start:web": "dotenv -e .env.web -- next start",
+  "start:native": "dotenv -e .env.native -- react-native run-android"
+},
+
+// devDependencies addition
+"devDependencies": {
+  "@react-native-community/cli": "latest",
+  "dotenv-cli": "^7.0.0"
+}

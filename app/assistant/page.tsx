@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Textarea } from 'components/ui/textarea';
+import { Button } from 'components/ui/button';
+import { Card, CardContent } from 'components/ui/card';
 
 export default function AssistantPage() {
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
