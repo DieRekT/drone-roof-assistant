@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     const { messages, context } = await req.json();
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo", // ✅ Corrected model name
+      model: "gpt-4o", // ✅ Corrected model name
       stream: true,
       messages: [
         {
