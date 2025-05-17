@@ -1,55 +1,42 @@
-import { NextRequest } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { OpenAI } from 'openai';
+import { NextRequest } from 'next/server';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
+// Instantiate OpenAI client with your API key
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const { messages, context } = await request.json();
+    // Parse user message and context from request body
+    const { messages, context } = await req.json();
 
-    if (!messages || !Array.isArray(messages) || messages.length === 0) {
-      return new Response(JSON.stringify({ error: 'Invalid or empty messages array' }), { status: 400 });
-    }
-
-    // Optionally, you can log the request or user info to Supabase here
-
-    // Call OpenAI chat completion API
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    // Construct chat completion request
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4',
       messages: [
-        { role: 'system', content: `Context: ${context || 'No context provided.'}` },
+        { role: 'system', content: context || "You are a helpful drone assistant." },
         ...messages,
       ],
-      stream: true,
+      stream: false,
     });
 
-    const encoder = new TextEncoder();
+    // Return the assistant's response to the frontend
+    return new Response(
+      JSON.stringify({ message: response.choices[0]?.message?.content }),
+      { headers: { 'Content-Type': 'application/json' } }
+    );
+  } catch (error: any) {
+    // Log and return graceful error
+    console.error("❌ OpenAI API Error:", error);
 
-    const stream = new ReadableStream({
-      async start(controller) {
-        for await (const chunk of completion) {
-          const text = chunk.choices[0]?.delta?.content;
-          if (text) {
-            controller.enqueue(encoder.encode(text));
-          }
-        }
-        controller.close();
-      },
-    });
-
-    return new Response(stream, {
-      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-    });
-  } catch (error) {
-    console.error('Error in /api/assistant:', error);
-    return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
+    return new Response(
+      JSON.stringify({
+        error: true,
+        message: "Assistant failed: " + (error?.message || "Unknown error"),
+      }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }
+

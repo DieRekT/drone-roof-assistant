@@ -38,14 +38,6 @@ npm install
 - Get your **project URL** and **anon/public key**
 
 4. **Configure environment variables**
-Create a `.env.local` file:
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key (if needed)
-DATABASE_URL=your-supabase-postgres-connection-url
-```
 
 5. **Push your database schema**
 ```bash

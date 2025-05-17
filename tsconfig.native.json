@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-native",
+    "noEmit": true,
+    "isolatedModules": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["react-native"]
+  },
+  "include": ["native/**/*", "Mobile-SDK-Android/**/*"]
+}
