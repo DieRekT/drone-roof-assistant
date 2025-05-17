@@ -1,12 +1,11 @@
 {
-  "name": "quickvote",
+  "name": "drone-roof-assistant",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prisma": "prisma",
     "dev:web": "dotenv -e .env.web -- next dev -p 3000",
     "dev:native": "dotenv -e .env.native -- npx react-native start",
     "build:web": "tsc --project tsconfig.web.json",
@@ -24,8 +23,8 @@
     "clsx": "^2.1.1",
     "next": "^14.2.28",
     "openai": "^4.100.0",
-    "react": "18.3.0",
-    "react-dom": "18.3.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-hook-form": "^7.45.0",
     "react-native": "^0.72.4",
     "tailwind-merge": "^3.3.0",
@@ -35,12 +34,12 @@
   "devDependencies": {
     "@react-native-community/cli": "^18.0.0",
     "@types/node": "^22.15.18",
-    "@types/react": "^19.1.4",
+    "@types/react": "^18.2.21",
     "@types/react-native": "^0.72.2",
     "dotenv-cli": "^8.0.0",
     "jest": "^29.6.1",
     "prisma": "^6.7.0",
-    "react-test-renderer": "^18.3.0",
+    "react-test-renderer": "18.2.0",
     "typescript": "^5.8.3"
   },
   "jest": {
