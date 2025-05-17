@@ -25,8 +25,8 @@ export async function POST(request: NextRequest) {
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-        ...messages,
         { role: 'system', content: `Context: ${context || 'No context provided.'}` },
+        ...messages,
       ],
       stream: true,
     });
