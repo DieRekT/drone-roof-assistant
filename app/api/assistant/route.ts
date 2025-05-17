@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 
     // Construct chat completion request
     const response = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: 'gpgpt-3.5-turbo',
       messages: [
         { role: 'system', content: context || "You are a helpful drone assistant." },
         ...messages,
