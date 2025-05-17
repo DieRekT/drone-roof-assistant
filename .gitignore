@@ -1,4 +1,7 @@
+# Build & dependency folders
 node_modules/
 .next/
-.env
 dist/
+
+# Ignore all env files
+.env*
